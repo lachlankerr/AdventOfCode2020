@@ -13,16 +13,16 @@ def read_input():
     with open('day01input.txt') as f:
         lines = f.read().splitlines()
 
+    lines = list(map(int, lines)) # convert list to ints
+
+    lines.sort() # modifies in place
+
     return lines
 
 def part_one(lines):
     '''
         Traverses the input lines and finds the two numbers that sum to 2020, then returns the product of them
     '''
-
-    lines = list(map(int, lines)) # convert list to ints
-
-    lines.sort() # modifies in place
 
     iterations = 0
 
@@ -38,10 +38,6 @@ def part_two(lines):
     '''
         Traverses the input lines and finds the three numbers that sum to 2020, then returns the product of them
     '''
-
-    lines = list(map(int, lines)) # convert list to ints
-
-    lines.sort() # modifies in place
 
     iterations = 0
 
