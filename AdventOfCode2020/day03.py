@@ -17,12 +17,19 @@ def read_input():
 
 def part_one(lines):
     '''
+        Returns the number of trees encounted on slope 'Right 3, down 1'.
     '''
 
     return count_trees_per_sloop(lines, 3, 1)
 
 def part_two(lines):
     '''
+        Returns the product of trees encounted on all 5 slopes:
+            Right 1, down 1.
+            Right 3, down 1.
+            Right 5, down 1.
+            Right 7, down 1.
+            Right 1, down 2.
     '''
 
     # not 20234789120
@@ -31,6 +38,7 @@ def part_two(lines):
 
 def count_trees_per_sloop(lines, right_step, down_step):
     '''
+        Counts the number of trees encounted using a specific slope
     '''
 
     trees = 0
