@@ -2,8 +2,6 @@
     Day 03: https://adventofcode.com/2020/day/3
 '''
 
-import re
-
 def read_input():
     '''
         Reads the input file and returns a list of all the lines
