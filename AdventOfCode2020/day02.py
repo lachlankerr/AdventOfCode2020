@@ -15,7 +15,7 @@ def read_input():
 
     return lines
 
-def part_one(lines):
+def regex_lines(lines, function):
     '''
         Calculates the amount of valid passwords from the given list
     '''
@@ -26,12 +26,12 @@ def part_one(lines):
 
     for line in lines:
         capture = re.search(regex_string, line)
-        if is_password_valid(capture.group(1), capture.group(2), capture.group(3), capture.group(4)):
+        if function(capture.group(1), capture.group(2), capture.group(3), capture.group(4)):
             valid_passwords += 1
     
     return valid_passwords
 
-def is_password_valid(min, max, letter, password):
+def is_password_valid_part_one(min, max, letter, password):
     '''
         Determines if the given password is valid based on the required number of occurences of letter
     '''
@@ -39,3 +39,13 @@ def is_password_valid(min, max, letter, password):
     count = password.count(letter)
     return int(min) <= count <= int(max)
         
+def is_password_valid_part_two(first_position, second_position, letter, password):
+    '''
+        Determines if the given password is valid based on the position of a specific letter
+    '''
+
+    if password[int(first_position)-1] == letter and password[int(second_position)-1] != letter:
+        return True
+    elif password[int(first_position)-1] != letter and password[int(second_position)-1] == letter:
+        return True
+    return False
