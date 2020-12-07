@@ -4,6 +4,7 @@ import day03
 import day04
 import day05
 import day06
+import day07
 
 if __name__ == "__main__":
     #print(f"Day 01 part 1: {day01.part_one(day01.read_input())}")
@@ -21,5 +22,8 @@ if __name__ == "__main__":
     #print(f"Day 05 part 1: {day05.part_one(day05.read_input())}")
     #print(f"Day 05 part 2: {day05.part_two(day05.read_input
     
-    print(f"Day 06 part 1: {day06.part_one(day06.read_input())}")
-    print(f"Day 06 part 1: {day06.part_two(day06.read_input())}")
+    #print(f"Day 06 part 1: {day06.part_one(day06.read_input())}")
+    #print(f"Day 06 part 2: {day06.part_two(day06.read_input())}")
+
+    print(f"Day 07 part 1: {day07.part_one(day07.read_input())}")
+    print(f"Day 07 part 2: {day07.part_two(day07.read_input())}")
