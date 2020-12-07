@@ -18,6 +18,7 @@ def read_input():
 
 def part_one(lines):
     '''
+        Gets the number of bag colours that can contain at least one shiny gold bag
     '''
 
     bags_dictionary = {}
@@ -53,6 +54,7 @@ def part_one(lines):
 
 def part_two(lines):
     '''
+        Gets the number of individual bags required inside a single shiny gold bag
     '''
 
     bags_dictionary = {}
@@ -75,6 +77,7 @@ def part_two(lines):
 
 def recursive_bag_total(dictionary, key):
     '''
+        Uses recursion to get the total number of bags for a given key, final result must be -1 to not account for the actual bag
     '''
 
     total_count = 0
@@ -82,7 +85,6 @@ def recursive_bag_total(dictionary, key):
 
     for bag, count in sub_bags.items():
         total_count += int(count) * recursive_bag_total(dictionary, bag)
-        #total_count += int(count)
 
     total_count += 1
 
