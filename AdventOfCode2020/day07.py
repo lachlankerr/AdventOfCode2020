@@ -3,7 +3,6 @@
 '''
 
 import re
-import queue
 
 def read_input():
     '''
