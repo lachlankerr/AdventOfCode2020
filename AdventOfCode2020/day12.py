@@ -24,6 +24,8 @@ def read_input():
 
 def part_one(lines):
     '''
+        Calculates the ships position based on the given actions.
+        Returns the manhattan distance of the ships final position from the starting position.
     '''
 
     direction_vector = EAST.copy() # starts facing east
@@ -51,31 +53,28 @@ def part_one(lines):
 
     return abs(current_position[0]) + abs(current_position[1]) # since we start at 0,0 we can just do abs of both, not 53 or 174, too low
 
-def change_direction_vector(direction_vector, direction, degrees):
+def change_direction_vector(vector, direction, degrees):
     '''
+        Changes our direction vector in 90 degree increments depending on the given direction.
     '''
 
     while degrees > 0:
         if direction == LEFT:
-            if direction_vector[0] == 0: # checked
-                direction_vector[0] = direction_vector[1]
-                direction_vector[1] = 0
+            if vector[0] == 0: # checked
+                vector[0], vector[1] = vector[1], 0
             else: 
-                direction_vector[1] = direction_vector[0] * -1
-                direction_vector[0] = 0
+                vector[0], vector[1] = 0, vector[0] * -1
         elif direction == RIGHT:
-            if abs(direction_vector[0]) == 1:
-                direction_vector[1] = direction_vector[0]
-                direction_vector[0] = 0
+            if abs(vector[0]) == 1:
+                vector[0], vector[1] = 0, vector[0]
             else:
-                direction_vector[0] = direction_vector[1] * -1
-                direction_vector[1] = 0
+                vector[0], vector[1] = vector[1] * -1, 0
 
         degrees -= 90
 
-    return direction_vector
+    return vector
 
-# unit tests for above function
+# unit tests for change_direction_vector function
 assert change_direction_vector(EAST.copy(), LEFT, 90) == NORTH
 assert change_direction_vector(EAST.copy(), LEFT, 180) == WEST
 assert change_direction_vector(EAST.copy(), LEFT, 270) == SOUTH
@@ -118,6 +117,7 @@ assert change_direction_vector(SOUTH.copy(), RIGHT, 360) == SOUTH
 
 def update_position(current_position, direction_vector, value):
     '''
+        Updates the given position by a vector or position scalar.
     '''
 
     current_position[0] += direction_vector[0] * value
@@ -127,9 +127,11 @@ def update_position(current_position, direction_vector, value):
 
 def part_two(lines):
     '''
+        Calculates the ships position based on the given actions.
+        Uses a waypoint instead of a direction vector.
+        Returns the manhattan distance of the ships final position from the starting position.
     '''
 
-    direction_vector = EAST.copy() # starts facing east
     current_position = [0, 0]
     waypoint = [1, 10]
 
@@ -147,10 +149,25 @@ def part_two(lines):
         elif action == 'W':
             waypoint = update_position(waypoint, WEST, value)
         elif action == 'L':
-            direction_vector = change_direction_vector(direction_vector, LEFT, value)
+            direction_vector = rotate_waypoint(waypoint, LEFT, value)
         elif action == 'R':
-            direction_vector = change_direction_vector(direction_vector, RIGHT, value)
+            direction_vector = rotate_waypoint(waypoint, RIGHT, value)
         elif action == 'F':
-            current_position = update_position(current_position, direction_vector, value)
+            current_position = update_position(current_position, waypoint, value)
 
     return abs(current_position[0]) + abs(current_position[1]) # since we start at 0,0 we can just do abs of both, not 53 or 174, too low
+
+def rotate_waypoint(waypoint, direction, degrees):
+    '''
+        Rotates the waypoint in 90 degree increments either left or right.
+        We don't have to think about the ships position because the waypoint is just a relative position.
+    '''
+
+    while degrees > 0:
+        if direction == LEFT:
+            waypoint[0], waypoint[1] = waypoint[1], waypoint[0] * -1
+        elif direction == RIGHT:
+            waypoint[0], waypoint[1] = waypoint[1] * -1, waypoint[0]
+        degrees -= 90
+
+    return waypoint
