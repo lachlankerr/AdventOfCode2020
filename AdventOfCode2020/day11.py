@@ -39,7 +39,7 @@ def part_one(lines):
     width = len(lines[0])
 
     while seats_changed != 0:
-        lines, seats_changed = apply_rules(lines)
+        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_one)
 
     num_occupied = 0
 
@@ -50,11 +50,26 @@ def part_one(lines):
 
 def part_two(lines):
     '''
-    '''
+    '''    
+    global height
+    global width
 
-    pass
+    seats_changed = 1
 
-def apply_rules(lines):
+    height = len(lines)
+    width = len(lines[0])
+
+    while seats_changed != 0:
+        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_two)
+
+    num_occupied = 0
+
+    for line in lines:
+        num_occupied += line.count('#')
+
+    return num_occupied
+
+def apply_rules(lines, function):
     '''
     '''
 
@@ -69,7 +84,7 @@ def apply_rules(lines):
             if lines[row][col] == '.':
                 col += 1
                 continue
-            occupied = adjacent_occupied(lines, row, col)
+            occupied = function(lines, row, col)
             if lines[row][col] == 'L' and occupied == 0:
                 result[row] = result[row][:col] + '#' + result[row][col + 1:]
                 seats_changed += 1
@@ -81,7 +96,7 @@ def apply_rules(lines):
 
     return (result, seats_changed)
 
-def adjacent_occupied(lines, row, col):
+def adjacent_occupied_part_one(lines, row, col):
     '''
     '''
 
@@ -90,6 +105,34 @@ def adjacent_occupied(lines, row, col):
     for position in positions_to_check:
         x = row + position[0]
         y = col + position[1]
+
+        if x < 0 or y < 0 or x >= height or y >= width:
+            continue
+
+        if lines[x][y] == '#':
+            occupied_seats += 1
+
+    return occupied_seats
+
+def adjacent_occupied_part_two(lines, row, col):
+    '''
+    '''
+
+    occupied_seats = 0
+
+    for position in positions_to_check:
+        x = row + position[0]
+        y = col + position[1]
+
+        if x < 0 or y < 0 or x >= height or y >= width:
+            continue
+
+        while lines[x][y] == '.':
+            x += position[0]
+            y += position[1]
+
+            if x < 0 or y < 0 or x >= height or y >= width:
+                break
 
         if x < 0 or y < 0 or x >= height or y >= width:
             continue
