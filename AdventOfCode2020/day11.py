@@ -39,7 +39,7 @@ def part_one(lines):
     width = len(lines[0])
 
     while seats_changed != 0:
-        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_one)
+        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_one, 4)
 
     num_occupied = 0
 
@@ -60,7 +60,7 @@ def part_two(lines):
     width = len(lines[0])
 
     while seats_changed != 0:
-        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_two)
+        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_two, 5)
 
     num_occupied = 0
 
@@ -69,7 +69,7 @@ def part_two(lines):
 
     return num_occupied
 
-def apply_rules(lines, function):
+def apply_rules(lines, function, occupied_rule):
     '''
     '''
 
@@ -88,7 +88,7 @@ def apply_rules(lines, function):
             if lines[row][col] == 'L' and occupied == 0:
                 result[row] = result[row][:col] + '#' + result[row][col + 1:]
                 seats_changed += 1
-            elif lines[row][col] == '#' and occupied >= 4:
+            elif lines[row][col] == '#' and occupied >= occupied_rule:
                 result[row] = result[row][:col] + 'L' + result[row][col + 1:]
                 seats_changed += 1
             col += 1
