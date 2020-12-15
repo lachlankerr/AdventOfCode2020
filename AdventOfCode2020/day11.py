@@ -29,28 +29,23 @@ def read_input():
 
 def part_one(lines):
     '''
+        Gets the number of occupied seats based on part one rules.
     '''
-    global height
-    global width
-
-    seats_changed = 1
-
-    height = len(lines)
-    width = len(lines[0])
-
-    while seats_changed != 0:
-        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_one, 4)
-
-    num_occupied = 0
-
-    for line in lines:
-        num_occupied += line.count('#')
-
-    return num_occupied
+    
+    return num_occupied_seats(lines, adjacent_occupied_part_one, 4)
 
 def part_two(lines):
     '''
-    '''    
+        Gets the number of occupied seats based on part two rules.
+    '''
+
+    return num_occupied_seats(lines, adjacent_occupied_part_two, 5)
+
+def num_occupied_seats(lines, function, occupied_rule):
+    '''
+        Gets the number of occupied seats after rule changes no longer change the grid.
+    '''
+
     global height
     global width
 
@@ -60,7 +55,7 @@ def part_two(lines):
     width = len(lines[0])
 
     while seats_changed != 0:
-        lines, seats_changed = apply_rules(lines, adjacent_occupied_part_two, 5)
+        lines, seats_changed = apply_rules(lines, function, occupied_rule)
 
     num_occupied = 0
 
@@ -71,6 +66,7 @@ def part_two(lines):
 
 def apply_rules(lines, function, occupied_rule):
     '''
+        Applies the rules of the model to the grid
     '''
 
     result = lines.copy()
@@ -98,6 +94,8 @@ def apply_rules(lines, function, occupied_rule):
 
 def adjacent_occupied_part_one(lines, row, col):
     '''
+        Better solution using vectors, bit faster and better looking.
+        Gets the number of immediately adjacent occupied seats to the given seat position.
     '''
 
     occupied_seats = 0
@@ -116,6 +114,33 @@ def adjacent_occupied_part_one(lines, row, col):
 
 def adjacent_occupied_part_two(lines, row, col):
     '''
+        Better solution using spikes method, tweaked a bit to reduce breaks to only 1.
+        Gets the number of visible occupied seats to the given seat position.
+    '''
+
+    occupied_seats = 0
+
+    for position in positions_to_check:
+        multiplier = 1
+        current_seat = '.'
+        while current_seat == '.':
+            x = row + (position[0] * multiplier)
+            y = col + (position[1] * multiplier)
+
+            if x < 0 or y < 0 or x >= height or y >= width:
+                break
+
+            if lines[x][y] == '#':
+                occupied_seats += 1
+
+            multiplier += 1
+            current_seat = lines[x][y]
+
+    return occupied_seats
+
+def adjacent_occupied_part_two_quickest(lines, row, col):
+    '''
+        First iteration of my part_two solution. Is the fastest but has 3 break/continues which don't look the best
     '''
 
     occupied_seats = 0
@@ -142,8 +167,9 @@ def adjacent_occupied_part_two(lines, row, col):
 
     return occupied_seats
 
-def adjacent_occupied_slow(lines, row, col):
+def adjacent_occupied_part_one_slow(lines, row, col):
     '''
+        First iteration of my part one solution, is slow and ugly
     '''
 
     occupied_seats = 0
