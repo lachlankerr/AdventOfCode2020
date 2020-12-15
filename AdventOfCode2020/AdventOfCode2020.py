@@ -9,6 +9,7 @@ import day08
 import day09
 import day10
 import day11
+import day12
 
 from timeit import default_timer as timer
 
@@ -43,14 +44,17 @@ if __name__ == "__main__":
     #print(f"Day 10 part 1: {day10.part_one(day10.read_input())}")
     #print(f"Day 10 part 2: {day10.part_two(day10.read_input())}")
 
-    start = timer()
-    part_one = day11.part_one(day11.read_input())
-    end = timer()
+    #start = timer()
+    #part_one = day11.part_one(day11.read_input())
+    #end = timer()
 
-    print(f"Day 11 part 1: {part_one} in {end - start} seconds")
+    #print(f"Day 11 part 1: {part_one} in {end - start} seconds")
 
-    start = timer()
-    part_two = day11.part_two(day11.read_input())
-    end = timer()
+    #start = timer()
+    #part_two = day11.part_two(day11.read_input())
+    #end = timer()
 
-    print(f"Day 11 part 2: {part_two} in {end - start} seconds")
+    #print(f"Day 11 part 2: {part_two} in {end - start} seconds")
+
+    print(f"Day 12 part 1: {day12.part_one(day12.read_input())}")
+    print(f"Day 12 part 2: {day12.part_two(day12.read_input())}")
