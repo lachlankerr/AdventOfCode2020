@@ -63,4 +63,15 @@ if __name__ == "__main__":
     #print(f"Day 12 part 2: {day12.part_two(day12.read_input())}")
 
     print(f"Day 13 part 1: {day13.part_one(day13.read_input())}")
-    print(f"Day 13 part 2: {day13.part_two(day13.read_input())}")
+
+    start = timer()
+    part_two = day13.part_two(day13.read_input())
+    end = timer()
+    
+    print(f"Day 13 part 2: {part_two} in {end - start} seconds")
+
+    start = timer()
+    part_two = day13.part_two_working(day13.read_input())
+    end = timer()
+    
+    print(f"Day 13 part 2: {part_two} in {end - start} seconds")
