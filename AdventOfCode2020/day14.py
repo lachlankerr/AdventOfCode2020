@@ -60,7 +60,8 @@ def set_bit(v, index, x):
     return v            # Return the result, we're done.
 
 def part_two(lines):
-    '''
+    ''' 
+        Test
     '''
 
     pass
